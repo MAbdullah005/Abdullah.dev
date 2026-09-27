@@ -1,15 +1,12 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { PERSONAL_INFO } from "@/data/portfolio-data";
 import {
   ArrowDown,
   Github,
   Linkedin,
   FileText,
-  MapPin,
-  Sparkles,
   ArrowUpRight,
 } from "lucide-react";
 
@@ -43,7 +40,15 @@ export default function HeroSection({
 
             {/* Supporting Text */}
             <p className="text-base sm:text-lg text-[#4B5563] dark:text-[#9CA3AF] max-w-2xl leading-relaxed mb-8">
-              {PERSONAL_INFO.shortPositioning}
+              {PERSONAL_INFO.shortPositioning.split(". ").map((line, idx, all) => {
+                const isLast = idx === all.length - 1;
+                return (
+                  <span key={idx} className="block sm:inline sm:mr-2">
+                    {line}
+                    {!isLast && "."}
+                  </span>
+                );
+              })}
             </p>
 
             {/* Action Buttons */}
@@ -93,17 +98,11 @@ export default function HeroSection({
           <div className="shrink-0 mx-auto lg:mx-0 flex flex-col items-center">
             <div className="relative w-44 h-44 sm:w-52 sm:h-52 lg:w-56 lg:h-56 rounded-2xl overflow-hidden border border-[#E8E8E4] dark:border-[#1F2937] shadow-sm bg-white dark:bg-[#111827] group">
               <img
-                src="/profile.jpg"
+                src={PERSONAL_INFO.profileImage}
                 alt="Abdullah Ali — AI/ML Engineer"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </div>
-
-            {/* Location & availability subtitle */}
-            <div className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-mono text-[#6B7280] dark:text-[#9CA3AF]">
-              <MapPin className="w-3.5 h-3.5 text-[#0D9488] dark:text-[#5EEAD4]" />
-              <span>{PERSONAL_INFO.location}</span>
             </div>
           </div>
         </div>
