@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { EXPERIENCE } from "@/data/portfolio-data";
-import { Building2, MapPin, ArrowUpRight, Layers } from "lucide-react";
+import { Building2, MapPin, Layers } from "lucide-react";
 
 export default function ExperienceSection() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -34,13 +34,8 @@ export default function ExperienceSection() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="max-w-2xl mb-10 sm:mb-12">
-          <span className="section-label">Experience</span>
-          <h2 className="section-title">Where I have applied it</h2>
-          <p className="section-body">
-            Hands-on work across the full lifecycle of an AI system — from raw data and
-            feature engineering to containerized, version-controlled pipelines in
-            production.
-          </p>
+          <span className="section-label">Career</span>
+          <h2 className="section-title">Experience</h2>
         </div>
 
         <div
@@ -123,11 +118,6 @@ export default function ExperienceSection() {
               </div>
             </article>
           ))}
-
-          <p className="flex items-center gap-1.5 text-[11px] font-mono text-[#6B7280] dark:text-[#9CA3AF]">
-            Full role details and education on request
-            <ArrowUpRight className="h-3 w-3" />
-          </p>
         </div>
       </div>
     </section>

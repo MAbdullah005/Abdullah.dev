@@ -128,35 +128,36 @@ function FeaturedCard({
             {project.description}
           </p>
 
-          <div className="mt-5 flex flex-wrap gap-1.5">
-            {project.tech.slice(0, 8).map((tech) => (
-              <span
-                key={tech}
-                className="pill transition-colors group-hover:border-[#0D9488]/30"
-              >
-                {tech}
+          <div className="mt-6 flex flex-wrap gap-1.5">
+            {project.tech.slice(0, 8).map((t) => (
+              <span key={t} className="pill">
+                {t}
               </span>
             ))}
             {project.tech.length > 8 && (
-              <span className="pill">+{project.tech.length - 8}</span>
+              <span className="pill text-[#6B7280] dark:text-[#9CA3AF]">
+                +{project.tech.length - 8}
+              </span>
             )}
           </div>
 
-          <div className="mt-auto pt-6 flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-lg bg-[#111827] px-4 py-2.5 text-xs font-semibold text-white transition-all group-hover:bg-[#0D9488] dark:bg-[#F9FAFB] dark:text-[#111827] dark:group-hover:bg-[#0D9488] dark:group-hover:text-white">
+          <div className="mt-auto pt-6 flex items-center justify-between border-t border-[#E8E8E4]/60 dark:border-[#1F2937]/60">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0D9488] dark:text-[#5EEAD4] group-hover:underline">
               View Case Study
-              <ArrowUpRight className="h-3.5 w-3.5" />
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
+
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="btn-ghost"
+                aria-label={`${project.title} source code`}
+                className="inline-flex items-center gap-1.5 rounded-md border border-[#E8E8E4] px-2.5 py-1.5 text-[11px] font-mono text-[#4B5563] transition-all hover:border-[#0D9488]/40 hover:text-[#0D9488] dark:border-[#1F2937] dark:text-[#9CA3AF] dark:hover:border-[#5EEAD4]/35 dark:hover:text-[#5EEAD4]"
               >
                 <Github className="h-3.5 w-3.5" />
-                Source
+                Code
               </a>
             )}
           </div>
@@ -167,84 +168,76 @@ function FeaturedCard({
 }
 
 /* ------------------------------------------------------------------ */
-/* Standard project card                                               */
+/* Standard project card                                              */
 /* ------------------------------------------------------------------ */
 
 function ProjectCard({
   project,
   onSelect,
   mounted,
-  delay,
+  delay = 0,
 }: {
   project: Project;
   onSelect: (p: Project) => void;
   mounted: boolean;
-  delay: number;
+  delay?: number;
 }) {
-  const Icon = ICONS[project.slug] ?? Layers;
+  const Icon = ICONS[project.slug] ?? Sparkles;
 
   return (
     <article
       onClick={() => onSelect(project)}
-      className={`group relative flex cursor-pointer flex-col overflow-hidden rounded-xl border border-[#E8E8E4] bg-white p-5 sm:p-6 shadow-2xs transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-[#0D9488]/40 hover:shadow-sm dark:border-[#1F2937] dark:bg-[#111827] dark:hover:border-[#5EEAD4]/35 ${
+      className={`group relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-[#E8E8E4] bg-white p-6 shadow-2xs transition-all duration-300 ease-smooth hover:-translate-y-1 hover:border-[#0D9488]/40 hover:shadow-sm sm:p-7 dark:border-[#1F2937] dark:bg-[#111827] dark:hover:border-[#5EEAD4]/35 ${
         mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
       }`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      {/* Top rule accent */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-[#0D9488] transition-transform duration-500 ease-smooth group-hover:scale-x-100 dark:bg-[#5EEAD4]"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0D9488]/[0.05] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:from-[#0D9488]/[0.09]"
       />
 
-      <div className="flex items-start justify-between gap-3">
-        <div
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#E8E8E4] bg-[#F4F4F0] text-[#111827] transition-all duration-300 group-hover:scale-105 group-hover:border-[#0D9488]/30 group-hover:text-[#0D9488] dark:border-[#374151] dark:bg-[#1F2937] dark:text-[#F9FAFB] dark:group-hover:text-[#5EEAD4]"
-        >
-          <Icon className="h-4.5 w-4.5" />
-        </div>
-        {project.metric && (
-          <div className="text-right">
-            <p className="text-sm font-bold text-[#0D9488] dark:text-[#5EEAD4]">
-              {project.metric}
-            </p>
-            <p className="text-[10px] font-mono text-[#6B7280] dark:text-[#9CA3AF]">
-              {project.metricLabel}
-            </p>
+      <div className="relative">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#E8E8E4] bg-[#F4F4F0] text-[#111827] transition-colors group-hover:border-[#0D9488]/30 group-hover:text-[#0D9488] dark:border-[#374151] dark:bg-[#1F2937] dark:text-[#F9FAFB] dark:group-hover:text-[#5EEAD4]">
+            <Icon className="h-4.5 w-4.5" />
           </div>
-        )}
+          {project.metric && (
+            <span className="pill text-[11px]">{project.metric}</span>
+          )}
+        </div>
+
+        <h3 className="mt-5 text-lg font-bold tracking-tight text-[#111827] transition-colors group-hover:text-[#0D9488] dark:text-[#F9FAFB] dark:group-hover:text-[#5EEAD4]">
+          {project.title}
+        </h3>
+        <p className="mt-0.5 text-xs font-mono text-[#0D9488] dark:text-[#5EEAD4]">
+          {project.tagline}
+        </p>
+
+        <p className="mt-3 text-xs sm:text-sm leading-relaxed text-[#4B5563] dark:text-[#9CA3AF]">
+          {project.description}
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-1.5">
+          {project.tech.slice(0, 6).map((t) => (
+            <span key={t} className="pill">
+              {t}
+            </span>
+          ))}
+          {project.tech.length > 6 && (
+            <span className="pill text-[#6B7280] dark:text-[#9CA3AF]">
+              +{project.tech.length - 6}
+            </span>
+          )}
+        </div>
       </div>
 
-      <h3 className="mt-4 text-base font-bold tracking-tight text-[#111827] transition-colors group-hover:text-[#0D9488] dark:text-[#F9FAFB] dark:group-hover:text-[#5EEAD4]">
-        {project.title}
-      </h3>
-      <p className="mt-0.5 text-[11px] font-mono text-[#6B7280] dark:text-[#9CA3AF]">
-        {project.tagline}
-      </p>
-      <p className="mt-3 flex-1 text-sm leading-relaxed text-[#4B5563] dark:text-[#9CA3AF]">
-        {project.description}
-      </p>
-
-      <div className="mt-4 flex flex-wrap gap-1.5">
-        {project.tech.slice(0, 5).map((tech) => (
-          <span
-            key={tech}
-            className="pill transition-colors group-hover:border-[#0D9488]/30"
-          >
-            {tech}
-          </span>
-        ))}
-        {project.tech.length > 5 && (
-          <span className="pill">+{project.tech.length - 5}</span>
-        )}
-      </div>
-
-      {/* Actions reveal on hover, always visible on touch */}
-      <div className="mt-5 flex items-center gap-3 border-t border-[#E8E8E4]/60 pt-4 dark:border-[#1F2937]/60">
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#111827] transition-colors group-hover:text-[#0D9488] dark:text-[#F9FAFB] dark:group-hover:text-[#5EEAD4]">
+      <div className="relative mt-6 flex items-center justify-between border-t border-[#E8E8E4]/60 pt-4 dark:border-[#1F2937]/60">
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#0D9488] dark:text-[#5EEAD4] group-hover:underline">
           View Case Study
-          <ArrowUpRight className="h-3.5 w-3.5" />
+          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
+
         {project.github && (
           <a
             href={project.github}
@@ -285,11 +278,6 @@ export default function ProjectsSection({
           <div className="max-w-2xl">
             <span className="section-label">Selected Work</span>
             <h2 className="section-title">Systems, not notebooks</h2>
-            <p className="section-body">
-              Each project below is a working system with retrieval, services, and
-              deployment behind it. Open any card for the problem, architecture,
-              engineering decisions, and outcome.
-            </p>
           </div>
           <a
             href="https://github.com/MAbdullah005"

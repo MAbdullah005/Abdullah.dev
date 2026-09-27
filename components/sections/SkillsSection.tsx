@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { SKILL_CATEGORIES } from "@/data/portfolio-data";
-import { Brain, Cpu, Database, Boxes, Cloud } from "lucide-react";
+import { Sparkles, Brain, Database, Cpu, Cloud } from "lucide-react";
 
-const ICONS = [Brain, Cpu, Database, Boxes, Cloud];
+const ICONS = [Sparkles, Brain, Database, Cpu, Cloud];
 
 export default function SkillsSection() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -28,11 +28,6 @@ export default function SkillsSection() {
     return () => observer.disconnect();
   }, []);
 
-  const totalSkills = SKILL_CATEGORIES.reduce(
-    (sum, category) => sum + category.skills.length,
-    0
-  );
-
   return (
     <section
       id="skills"
@@ -43,11 +38,6 @@ export default function SkillsSection() {
         <div className="max-w-2xl mb-10 sm:mb-12">
           <span className="section-label">Skills</span>
           <h2 className="section-title">Organised by where they get used</h2>
-          <p className="section-body">
-            {totalSkills} tools and concepts grouped by the layer they operate at — from
-            raw data, through models and agents, to the infrastructure that keeps them
-            running.
-          </p>
         </div>
 
         <div
@@ -64,42 +54,43 @@ export default function SkillsSection() {
             return (
               <div
                 key={category.id}
-                className={`card group relative p-5 sm:p-6 overflow-hidden transition-all duration-500 ease-smooth hover:border-[#0D9488]/40 hover:shadow-sm dark:hover:border-[#5EEAD4]/35 ${span} ${
-                  inView
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-5"
+                className={`group relative overflow-hidden rounded-2xl border border-[#E8E8E4] bg-white p-6 shadow-2xs transition-all duration-300 hover:border-[#0D9488]/40 hover:shadow-sm dark:border-[#1F2937] dark:bg-[#111827] dark:hover:border-[#5EEAD4]/35 ${span} ${
+                  inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
-                style={{ transitionDelay: `${idx * 70}ms` }}
+                style={{
+                  transitionDelay: `${idx * 60}ms`,
+                }}
               >
-                {/* Hover glow */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute -right-10 -top-10 w-32 h-32 rounded-full bg-[#0D9488]/0 blur-2xl transition-all duration-500 group-hover:bg-[#0D9488]/10 dark:group-hover:bg-[#0D9488]/15"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#0D9488]/[0.05] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:from-[#0D9488]/[0.09]"
                 />
 
-                <div className="relative flex items-start justify-between gap-3 mb-4">
-                  <div>
-                    <h3 className="text-sm font-bold text-[#111827] dark:text-[#F9FAFB] group-hover:text-[#0D9488] dark:group-hover:text-[#5EEAD4] transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="mt-1 text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
-                      {category.caption}
-                    </p>
+                <div className="relative">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#E8E8E4] bg-[#F4F4F0] text-[#0D9488] dark:border-[#374151] dark:bg-[#1F2937] dark:text-[#5EEAD4]">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-[#111827] dark:text-[#F9FAFB]">
+                        {category.name}
+                      </h3>
+                      <p className="text-[11px] font-mono text-[#6B7280] dark:text-[#9CA3AF]">
+                        {category.caption}
+                      </p>
+                    </div>
                   </div>
-                  <div className="w-9 h-9 shrink-0 rounded-lg border border-[#E8E8E4] dark:border-[#374151] bg-[#F4F4F0] dark:bg-[#1F2937] flex items-center justify-center text-[#111827] dark:text-[#F9FAFB] group-hover:text-[#0D9488] dark:group-hover:text-[#5EEAD4] group-hover:border-[#0D9488]/30 transition-colors">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                </div>
 
-                <div className="relative flex flex-wrap gap-1.5">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="pill transition-all duration-200 hover:border-[#0D9488]/40 hover:bg-[#CCFBF1]/30 hover:text-[#0F766E] dark:hover:border-[#5EEAD4]/35 dark:hover:bg-[#0D9488]/12 dark:hover:text-[#5EEAD4]"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  <div className="mt-5 flex flex-wrap gap-1.5">
+                    {category.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="pill transition-colors hover:border-[#0D9488]/40 hover:text-[#0D9488] dark:hover:border-[#5EEAD4]/35 dark:hover:text-[#5EEAD4]"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             );

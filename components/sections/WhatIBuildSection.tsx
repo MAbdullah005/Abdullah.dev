@@ -18,9 +18,6 @@ export default function WhatIBuildSection() {
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#111827] dark:text-[#F9FAFB] mb-3">
             What I Build
           </h2>
-          <p className="text-sm sm:text-base text-[#4B5563] dark:text-[#9CA3AF] leading-relaxed">
-            Bridging foundational machine learning theory with scalable LLM orchestration, containerized microservices, and autonomous tool-using agents.
-          </p>
         </div>
 
         {/* 4 Cards Grid */}

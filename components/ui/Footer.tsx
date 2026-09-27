@@ -43,8 +43,8 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Links */}
-          <div className="flex items-center gap-2">
+          {/* Links & Back to Top */}
+          <div className="flex items-center gap-3">
             <a
               href={`mailto:${PERSONAL_INFO.email}`}
               aria-label="Email"
@@ -70,28 +70,16 @@ export default function Footer() {
             >
               <Linkedin className="h-4 w-4" />
             </a>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-[#E8E8E4]/60 pt-5 sm:flex-row dark:border-[#1F2937]/60">
-          <p className="text-[11px] font-mono text-[#6B7280] dark:text-[#9CA3AF]">
-            © 2026 {PERSONAL_INFO.name}
-          </p>
-          <div className="flex items-center gap-4">
-            <p className="text-[11px] font-mono text-[#6B7280] dark:text-[#9CA3AF]">
-              Built with Next.js · Tailwind · Framer Motion
-            </p>
             <button
               onClick={scrollToTop}
               aria-label="Back to top"
-              className={`flex h-8 w-8 items-center justify-center rounded-lg border border-[#E8E8E4] text-[#4B5563] transition-all hover:border-[#0D9488]/40 hover:text-[#0D9488] dark:border-[#1F2937] dark:text-[#9CA3AF] dark:hover:border-[#5EEAD4]/35 dark:hover:text-[#5EEAD4] ${
+              className={`flex h-9 w-9 items-center justify-center rounded-lg border border-[#E8E8E4] text-[#4B5563] transition-all hover:border-[#0D9488]/40 hover:text-[#0D9488] dark:border-[#1F2937] dark:text-[#9CA3AF] dark:hover:border-[#5EEAD4]/35 dark:hover:text-[#5EEAD4] ${
                 showTop
                   ? "translate-y-0 opacity-100"
                   : "pointer-events-none translate-y-2 opacity-0"
               }`}
             >
-              <ArrowUp className="h-3.5 w-3.5" />
+              <ArrowUp className="h-4 w-4" />
             </button>
           </div>
         </div>

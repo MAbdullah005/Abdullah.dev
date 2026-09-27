@@ -56,11 +56,6 @@ export default function ArchitectureSection() {
         <div className="max-w-2xl mb-10 sm:mb-14">
           <span className="section-label">Technical Architecture</span>
           <h2 className="section-title">From Model to Production</h2>
-          <p className="section-body">
-            A model on its own is a component. This is the path it travels to become
-            something a product can depend on — and the part of the work I care about
-            most.
-          </p>
         </div>
 
         {/* Desktop: horizontal pipeline */}
@@ -144,13 +139,6 @@ export default function ArchitectureSection() {
             );
           })}
         </ol>
-
-        {/* Closing note */}
-        <p className="mt-8 max-w-2xl text-xs leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
-          Every stage above is something I have actually implemented: FAISS and BM25
-          retrieval, LangGraph agent graphs, FastAPI services, Docker images, and AWS
-          deployments on EC2 and S3.
-        </p>
       </div>
     </section>
   );

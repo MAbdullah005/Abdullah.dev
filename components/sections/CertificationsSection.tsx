@@ -49,12 +49,7 @@ export default function CertificationsSection({
         >
           <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl">
-              <span className="section-label">Certifications</span>
-              <h2 className="section-title">Verified training</h2>
-              <p className="section-body">
-                Structured programmes in agentic AI, MLOps, and applied machine
-                learning. Select any certificate to preview or download it.
-              </p>
+              <h2 className="section-title">Certifications</h2>
             </div>
             <span className="inline-flex shrink-0 items-center gap-1.5 self-start rounded-full border border-[#0D9488]/30 bg-white px-3 py-1.5 text-[11px] font-mono font-semibold text-[#0D9488] dark:border-[#5EEAD4]/25 dark:bg-[#111827] dark:text-[#5EEAD4] sm:self-auto">
               <Award className="h-3 w-3" />

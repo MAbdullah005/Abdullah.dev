@@ -5,17 +5,18 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import NeuralBackground from "@/components/canvas/NeuralBackground";
 import HeroSection from "@/components/sections/HeroSection";
+import ArchitectureSection from "@/components/sections/ArchitectureSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import WhatIBuildSection from "@/components/sections/WhatIBuildSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import SkillsSection from "@/components/sections/SkillsSection";
-import ArchitectureSection from "@/components/sections/ArchitectureSection";
 import JourneySection from "@/components/sections/JourneySection";
 import GithubSection from "@/components/sections/GithubSection";
 import CertificationsSection from "@/components/sections/CertificationsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import ResumeModal from "@/components/modals/ResumeModal";
 import CertificateModal from "@/components/modals/CertificateModal";
+import FloatingChatbot from "@/components/ui/FloatingChatbot";
 import type { Certification } from "@/data/portfolio-data";
 import ProjectDetailModal, {
   Project,
@@ -42,20 +43,21 @@ export default function Home() {
 
         <main className="flex-1">
           <HeroSection onOpenResume={() => setResumeOpen(true)} />
-          <ExperienceSection />
-          <WhatIBuildSection />
-          <ProjectsSection onSelectProject={setActiveProject} />
-          <SkillsSection />
           <ArchitectureSection />
+          <ExperienceSection />
+          <ProjectsSection onSelectProject={setActiveProject} />
+          <WhatIBuildSection />
+          <SkillsSection />
           <JourneySection />
-          <GithubSection />
           <CertificationsSection onSelectCertificate={setActiveCertificate} />
+          <GithubSection />
           <ContactSection />
         </main>
 
         <Footer />
       </div>
 
+      <FloatingChatbot />
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
       <CertificateModal
         certificate={activeCertificate}

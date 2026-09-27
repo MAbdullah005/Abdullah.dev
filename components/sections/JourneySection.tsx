@@ -2,31 +2,41 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { JOURNEY } from "@/data/portfolio-data";
-import { GraduationCap, Sparkles, Cpu, Workflow, Rocket } from "lucide-react";
-
-const ICONS = [GraduationCap, Cpu, Sparkles, Workflow, Rocket];
+import { CheckCircle2, Circle } from "lucide-react";
 
 export default function JourneySection() {
   const ref = useRef<HTMLDivElement | null>(null);
+  const [inView, setInView] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      setProgress(1);
-      return;
-    }
-
+  useEffect(() => {
     const handleScroll = () => {
+      const el = ref.current;
+      if (!el) return;
       const rect = el.getBoundingClientRect();
-      const viewport = window.innerHeight;
-      const total = rect.height + viewport - 120;
-      const travelled = Math.min(
-        Math.max(viewport - rect.top - 60, 0),
-        total
+      const windowH = window.innerHeight;
+      const total = rect.height;
+      const travelled = Math.max(
+        0,
+        Math.min(windowH * 0.7 - rect.top, total)
       );
       setProgress(Math.min(travelled / total, 1));
     };
@@ -50,84 +60,73 @@ export default function JourneySection() {
         <div className="max-w-2xl mb-10 sm:mb-14">
           <span className="section-label">Journey</span>
           <h2 className="section-title">How I got here</h2>
-          <p className="section-body">
-            A learning path rather than a job history — from computer science
-            fundamentals through classical ML, LLM applications, agents, and the
-            deployment work that makes them usable.
-          </p>
         </div>
 
         <div ref={ref} className="relative">
-          {/* Rail */}
+          {/* Vertical Track */}
           <div
             aria-hidden="true"
-            className="absolute left-[19px] top-2 bottom-2 w-px bg-[#E8E8E4] dark:bg-[#1F2937] md:left-1/2 md:-translate-x-1/2"
+            className="absolute left-4 top-2 bottom-2 w-px bg-[#E8E8E4] dark:bg-[#1F2937] sm:left-5"
           >
             <div
-              className="w-px origin-top bg-[#0D9488] transition-[height] duration-200 ease-out dark:bg-[#5EEAD4]"
+              className="w-full bg-[#0D9488] transition-all duration-300 dark:bg-[#5EEAD4]"
               style={{ height: `${progress * 100}%` }}
             />
           </div>
 
-          <ol className="space-y-8 md:space-y-10">
+          {/* Timeline Nodes */}
+          <div className="space-y-6 sm:space-y-8 pl-10 sm:pl-14">
             {JOURNEY.map((entry, idx) => {
-              const Icon = ICONS[idx % ICONS.length];
-              const isRight = idx % 2 === 1;
+              const nodeActive = inView;
 
               return (
-                <li
-                  key={entry.title}
-                  className="relative md:grid md:grid-cols-2 md:gap-10"
+                <article
+                  key={entry.period}
+                  className={`group relative rounded-xl border border-[#E8E8E4] bg-white p-5 shadow-2xs transition-all duration-500 hover:border-[#0D9488]/40 hover:shadow-sm sm:p-6 dark:border-[#1F2937] dark:bg-[#111827] dark:hover:border-[#5EEAD4]/35 ${
+                    nodeActive
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
+                  style={{
+                    transitionDelay: `${idx * 80}ms`,
+                  }}
                 >
-                  {/* Node marker */}
+                  {/* Node icon positioned over track */}
                   <div
                     aria-hidden="true"
-                    className="absolute left-0 top-1 flex h-10 w-10 items-center justify-center rounded-full border border-[#E8E8E4] bg-[#FBFBF9] dark:border-[#1F2937] dark:bg-[#0B0F1A] md:left-1/2 md:-translate-x-1/2"
+                    className="absolute -left-10 sm:-left-14 top-6 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border border-[#E8E8E4] bg-white text-[#0D9488] shadow-2xs transition-transform group-hover:scale-110 dark:border-[#1F2937] dark:bg-[#111827] dark:text-[#5EEAD4]"
                   >
-                    <div
-                      className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300 ${
-                        progress * JOURNEY.length > idx
-                          ? "bg-[#0D9488] text-white dark:bg-[#5EEAD4] dark:text-[#0B0F1A]"
-                          : "bg-[#F4F4F0] text-[#6B7280] dark:bg-[#1F2937] dark:text-[#9CA3AF]"
-                      }`}
-                    >
-                      <Icon className="h-3.5 w-3.5" />
-                    </div>
+                    {idx === JOURNEY.length - 1 ? (
+                      <Circle className="h-3 w-3 fill-[#0D9488] text-[#0D9488] dark:fill-[#5EEAD4] dark:text-[#5EEAD4]" />
+                    ) : (
+                      <CheckCircle2 className="h-4 w-4" />
+                    )}
                   </div>
 
-                  {/* Card */}
-                  <div
-                    className={`ml-14 md:ml-0 ${
-                      isRight ? "md:pl-14" : "md:pr-14 md:text-right"
-                    }`}
-                  >
-                    <div className="card p-5 transition-all duration-300 hover:border-[#0D9488]/40 dark:hover:border-[#5EEAD4]/35">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-[#0D9488] dark:text-[#5EEAD4]">
-                        {entry.period}
-                      </span>
-                      <h3 className="mt-1 text-sm font-bold text-[#111827] dark:text-[#F9FAFB]">
-                        {entry.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-[#4B5563] dark:text-[#9CA3AF]">
-                        {entry.description}
-                      </p>
-                      <div
-                        className={`mt-3.5 flex flex-wrap gap-1.5 ${
-                          isRight ? "md:justify-end" : ""
-                        }`}
-                      >
-                        {entry.tags.map((tag) => (
-                          <span key={tag} className="pill">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                    <span className="font-mono text-xs font-semibold text-[#0D9488] dark:text-[#5EEAD4]">
+                      {entry.period}
+                    </span>
+                    <h3 className="text-base font-bold text-[#111827] dark:text-[#F9FAFB]">
+                      {entry.title}
+                    </h3>
                   </div>
-                </li>
+
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#4B5563] dark:text-[#9CA3AF]">
+                    {entry.description}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {entry.tags.map((tag) => (
+                      <span key={tag} className="pill">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
               );
             })}
-          </ol>
+          </div>
         </div>
       </div>
     </section>

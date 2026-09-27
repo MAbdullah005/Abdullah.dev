@@ -48,8 +48,8 @@ export default function ContactSection() {
               <span className="text-[#0D9488] dark:text-[#5EEAD4]">Intelligent.</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-[#4B5563] dark:text-[#9CA3AF]">
-              I&apos;m always interested in AI/ML projects, internships,
-              collaborations, and opportunities to build useful AI systems.
+              I&apos;m always interested in AI/ML projects, collaborations, and
+              opportunities to build useful AI systems.
             </p>
 
             {/* Email with copy-to-clipboard */}
@@ -63,59 +63,53 @@ export default function ContactSection() {
               </a>
               <button
                 onClick={copyEmail}
+                className="btn-secondary justify-center"
                 aria-label="Copy email address"
-                className="btn-ghost justify-center"
               >
                 {copied ? (
-                  <Check className="h-3.5 w-3.5 text-[#0D9488] dark:text-[#5EEAD4]" />
+                  <>
+                    <Check className="h-3.5 w-3.5 text-[#0D9488] dark:text-[#5EEAD4]" />
+                    <span>Copied</span>
+                  </>
                 ) : (
-                  <Copy className="h-3.5 w-3.5" />
+                  <>
+                    <Copy className="h-3.5 w-3.5" />
+                    <span>Copy</span>
+                  </>
                 )}
-                <span className="font-mono">{copied ? "Copied" : "Copy"}</span>
               </button>
             </div>
 
-            <p className="mt-3 font-mono text-xs text-[#6B7280] dark:text-[#9CA3AF]">
-              {PERSONAL_INFO.email}
-            </p>
-
-            {/* Secondary links */}
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            {/* Social and phone links */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a
                 href={PERSONAL_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost group"
+                className="pill group transition-colors hover:border-[#0D9488]/40 hover:text-[#0D9488] dark:hover:border-[#5EEAD4]/35 dark:hover:text-[#5EEAD4]"
               >
-                <Linkedin className="h-3.5 w-3.5 text-[#0D9488] dark:text-[#5EEAD4]" />
+                <Linkedin className="h-3 w-3 text-[#0D9488] dark:text-[#5EEAD4]" />
                 LinkedIn
-                <ArrowUpRight className="h-3.5 w-3.5 text-[#9CA3AF] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="h-2.5 w-2.5 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
+
               <a
                 href={PERSONAL_INFO.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-ghost group"
+                className="pill group transition-colors hover:border-[#0D9488]/40 hover:text-[#0D9488] dark:hover:border-[#5EEAD4]/35 dark:hover:text-[#5EEAD4]"
               >
-                <Github className="h-3.5 w-3.5" />
+                <Github className="h-3 w-3 text-[#4B5563] dark:text-[#9CA3AF]" />
                 GitHub
-                <ArrowUpRight className="h-3.5 w-3.5 text-[#9CA3AF] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="h-2.5 w-2.5 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
-            </div>
 
-            {/* Meta line */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-t border-[#E8E8E4]/60 pt-5 text-[11px] font-mono text-[#6B7280] dark:border-[#1F2937]/60 dark:text-[#9CA3AF]">
-              <span className="inline-flex items-center gap-1.5">
-                <Phone className="h-3 w-3 text-[#0D9488] dark:text-[#5EEAD4]" />
-                {PERSONAL_INFO.phone}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <span className="relative flex w-1.5 h-1.5">
-                  <span className="absolute inline-flex w-full h-full animate-ping rounded-full bg-[#0D9488] opacity-60 dark:bg-[#5EEAD4]" />
-                  <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[#0D9488] dark:bg-[#5EEAD4]" />
+              {PERSONAL_INFO.phone && (
+                <span className="pill text-[#6B7280] dark:text-[#9CA3AF]">
+                  <Phone className="h-3 w-3 text-[#0D9488] dark:text-[#5EEAD4]" />
+                  {PERSONAL_INFO.phone}
                 </span>
-                Open to AI/ML roles &amp; collaborations
-              </span>
+              )}
             </div>
           </div>
         </div>
