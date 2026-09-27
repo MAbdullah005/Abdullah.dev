@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --page: #fbfbf9;
+    --surface: #ffffff;
+    --line: #e8e8e4;
+    --accent: #0d9488;
+  }
+
+  .dark {
+    --page: #0b0f1a;
+    --surface: #111827;
+    --line: #1f2937;
+    --accent: #5eead4;
+  }
+
+  * {
+    @apply border-[#E8E8E4] dark:border-[#1F2937];
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-[#FBFBF9] dark:bg-[#0B0F1A] text-[#111827] dark:text-[#F9FAFB] antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    @apply bg-[#0D9488]/20 dark:bg-[#5EEAD4]/25 text-[#111827] dark:text-[#F9FAFB];
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-[#0D9488] dark:ring-[#5EEAD4] ring-offset-2 ring-offset-[#FBFBF9] dark:ring-offset-[#0B0F1A];
+  }
+
+  /* Prevent horizontal overflow from decorative absolutely-positioned layers */
+  #page-root {
+    overflow-x: clip;
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply block mb-3 text-xs font-mono font-semibold uppercase tracking-wider text-[#0D9488] dark:text-[#5EEAD4];
+  }
+
+  .section-title {
+    @apply mb-3 text-2xl sm:text-3xl font-bold tracking-tight text-[#111827] dark:text-[#F9FAFB];
+  }
+
+  .section-body {
+    @apply text-sm sm:text-base leading-relaxed text-[#4B5563] dark:text-[#9CA3AF];
+  }
+
+  .card {
+    @apply rounded-xl border border-[#E8E8E4] bg-white shadow-2xs dark:border-[#1F2937] dark:bg-[#111827];
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded px-2 py-0.5 font-mono text-[11px] border border-[#E8E8E4] bg-[#FBFBF9] text-[#4B5563] dark:border-[#1F2937] dark:bg-[#0B0F1A] dark:text-[#9CA3AF];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-lg bg-[#111827] px-5 py-2.5 text-xs font-semibold tracking-wide text-white shadow-sm transition-all hover:bg-[#1F2937] dark:bg-[#F9FAFB] dark:text-[#111827] dark:hover:bg-[#E5E7EB];
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center gap-2 rounded-lg bg-[#0D9488] px-5 py-2.5 text-xs font-semibold tracking-wide text-white shadow-sm transition-all hover:bg-[#0F766E];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-lg border border-[#E8E8E4] bg-white px-4 py-2.5 text-xs font-semibold tracking-wide text-[#111827] transition-all hover:border-[#0D9488]/40 hover:bg-[#F4F4F0] dark:border-[#1F2937] dark:bg-[#111827] dark:text-[#F9FAFB] dark:hover:bg-[#1F2937];
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(
+        to right,
+        rgba(13, 148, 136, 0.06) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(13, 148, 136, 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
