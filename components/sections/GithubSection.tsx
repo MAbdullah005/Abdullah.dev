@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { GITHUB_CTA, PERSONAL_INFO } from "@/data/portfolio-data";
-import { Github, ArrowUpRight, Terminal, GitBranch, Star } from "lucide-react";
+import { Github, ArrowUpRight, Terminal, GitBranch, Star, MapPin } from "lucide-react";
+import JourneyModal from "@/components/modals/JourneyModal";
 
 const HIGHLIGHTS = [
   { label: "Language", value: "Python", Icon: Terminal },
@@ -11,7 +12,10 @@ const HIGHLIGHTS = [
 ];
 
 export default function GithubSection() {
+  const [journeyOpen, setJourneyOpen] = useState(false);
+
   return (
+    <>
     <section className="py-16 sm:py-24 border-b border-[#E8E8E4]/60 dark:border-[#1F2937]/60">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="relative overflow-hidden rounded-2xl border border-[#E8E8E4] bg-white p-6 shadow-2xs sm:p-10 dark:border-[#1F2937] dark:bg-[#111827]">
@@ -57,6 +61,13 @@ export default function GithubSection() {
                 >
                   Connect on LinkedIn
                 </a>
+                <button
+                  onClick={() => setJourneyOpen(true)}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#0D9488]/40 bg-[#CCFBF1]/30 dark:bg-[#0D9488]/10 dark:border-[#0D9488]/30 text-[#0F766E] dark:text-[#5EEAD4] text-xs font-semibold hover:bg-[#CCFBF1]/60 dark:hover:bg-[#0D9488]/20 transition-all"
+                >
+                  <MapPin className="h-3.5 w-3.5" />
+                  My Journey
+                </button>
               </div>
             </div>
 
@@ -81,5 +92,8 @@ export default function GithubSection() {
         </div>
       </div>
     </section>
+
+    <JourneyModal isOpen={journeyOpen} onClose={() => setJourneyOpen(false)} />
+    </>
   );
 }

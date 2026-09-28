@@ -440,6 +440,13 @@ export const JOURNEY: TimelineEntry[] = [
     tags: ["Computer Science", "Algorithms", "Databases"],
   },
   {
+    period: "Data & Analysis",
+    title: "Data Wrangling & Feature Engineering",
+    description:
+      "Worked through the full data pipeline — cleaning messy real-world datasets, engineering features, and building analytical foundations with NumPy, Pandas, SQL, and relational databases before feeding anything into a model.",
+    tags: ["NumPy", "Pandas", "SQL", "MySQL", "PostgreSQL", "SQLite", "Feature Engineering", "EDA", "Matplotlib"],
+  },
+  {
     period: "Machine Learning",
     title: "Classical ML & Deep Learning",
     description:

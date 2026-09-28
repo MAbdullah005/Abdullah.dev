@@ -9,13 +9,12 @@ import ExperienceSection from "@/components/sections/ExperienceSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import WhatIBuildSection from "@/components/sections/WhatIBuildSection";
 import SkillsSection from "@/components/sections/SkillsSection";
-import JourneySection from "@/components/sections/JourneySection";
 import CertificationsSection from "@/components/sections/CertificationsSection";
 import GithubSection from "@/components/sections/GithubSection";
 import ContactSection from "@/components/sections/ContactSection";
 import ResumeModal from "@/components/modals/ResumeModal";
 import CertificateModal from "@/components/modals/CertificateModal";
-import ChatbotSection from "@/components/sections/ChatbotSection";
+import FloatingChatbot from "@/components/ui/FloatingChatbot";
 import type { Certification } from "@/data/portfolio-data";
 import ProjectDetailModal, {
   Project,
@@ -46,8 +45,6 @@ export default function Home() {
           <ProjectsSection onSelectProject={setActiveProject} />
           <WhatIBuildSection />
           <SkillsSection />
-          <JourneySection />
-          <ChatbotSection />
           <CertificationsSection onSelectCertificate={setActiveCertificate} />
           <GithubSection />
           <ContactSection />
@@ -56,6 +53,7 @@ export default function Home() {
         <Footer />
       </div>
 
+      <FloatingChatbot />
       <ResumeModal isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
       <CertificateModal
         certificate={activeCertificate}

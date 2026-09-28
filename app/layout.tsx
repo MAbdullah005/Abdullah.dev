@@ -76,6 +76,7 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"){document.documentElement.classList.add("dark")}}catch(e){document.documentElement.classList.add("dark")}})();`,
           }}
         />
+        <script dangerouslySetInnerHTML={{ __html: `if(history.scrollRestoration){history.scrollRestoration='manual';}window.scrollTo(0,0);` }} />
       </head>
       <body className="font-sans">{children}</body>
     </html>

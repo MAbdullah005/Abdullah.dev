@@ -5,14 +5,9 @@
       "dom.iterable",
       "esnext"
     ],
-    "target": "ES2017",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    },
     "noEmit": true,
     "incremental": true,
     "module": "esnext",
@@ -21,6 +16,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
