@@ -1,20 +1,61 @@
 "use client";
 
-import React from "react";
-import { PERSONAL_INFO } from "@/data/portfolio-data";
+import React, { useEffect, useRef, useState } from "react";
+import { PERSONAL_INFO, ARCHITECTURE_PIPELINE } from "@/data/portfolio-data";
 import {
   ArrowDown,
   Github,
   Linkedin,
   FileText,
   ArrowUpRight,
+  Boxes,
+  Container,
+  Cloud,
+  Gauge,
+  Cpu,
+  Database,
+  Code2,
+  Layers,
 } from "lucide-react";
+
+const ICONS = [Database, Code2, Cpu, Layers, Boxes, Container, Cloud, Gauge];
 
 export default function HeroSection({
   onOpenResume,
 }: {
   onOpenResume: () => void;
 }) {
+  const pipelineRef = useRef<HTMLDivElement | null>(null);
+  const [active, setActive] = useState(0);
+  const [pipelineInView, setPipelineInView] = useState(false);
+
+  useEffect(() => {
+    const el = pipelineRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setPipelineInView(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!pipelineInView) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const interval = window.setInterval(() => {
+      setActive((prev) => (prev + 1) % ARCHITECTURE_PIPELINE.length);
+    }, 1500);
+    return () => window.clearInterval(interval);
+  }, [pipelineInView]);
+
   return (
     <section
       id="home"
@@ -106,8 +147,99 @@ export default function HeroSection({
             </div>
           </div>
         </div>
+
+        {/* Technical Architecture Pipeline — Embedded into Home */}
+        <div className="mt-14 sm:mt-16 pt-10 sm:pt-12 border-t border-[#E8E8E4]/60 dark:border-[#1F2937]/60">
+          <div className="mb-6 flex items-center justify-between">
+            <span className="section-label mb-0">From Model to Production</span>
+            <span className="text-[11px] font-mono text-[#6B7280] dark:text-[#9CA3AF]">
+              End-to-End System Pipeline
+            </span>
+          </div>
+
+          {/* Desktop: horizontal pipeline */}
+          <div
+            ref={pipelineRef}
+            className={`hidden md:grid md:grid-cols-8 md:items-stretch transition-all duration-700 ease-smooth ${
+              pipelineInView ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            {ARCHITECTURE_PIPELINE.map((stage, idx) => {
+              const Icon = ICONS[idx % ICONS.length];
+              const isActive = idx === active;
+
+              return (
+                <div key={stage.label} className="flex flex-col items-center">
+                  <div
+                    className={`w-full flex-1 rounded-xl border p-3.5 text-center transition-all duration-300 ease-smooth ${
+                      isActive
+                        ? "border-[#0D9488]/50 bg-[#0D9488]/[0.06] shadow-glow -translate-y-1 dark:border-[#5EEAD4]/40 dark:bg-[#0D9488]/[0.1]"
+                        : "border-[#E8E8E4] bg-white hover:border-[#0D9488]/30 dark:border-[#1F2937] dark:bg-[#111827]"
+                    }`}
+                  >
+                    <div
+                      className={`mx-auto mb-2.5 flex h-7.5 w-7.5 items-center justify-center rounded-lg border transition-colors ${
+                        isActive
+                          ? "border-[#0D9488]/30 text-[#0D9488] dark:text-[#5EEAD4]"
+                          : "border-[#E8E8E4] text-[#6B7280] dark:border-[#374151] dark:text-[#9CA3AF]"
+                      }`}
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                    </div>
+                    <p className="text-xs font-bold text-[#111827] dark:text-[#F9FAFB]">
+                      {stage.label}
+                    </p>
+                    <p className="mt-1 text-[10px] leading-relaxed text-[#6B7280] dark:text-[#9CA3AF]">
+                      {stage.detail}
+                    </p>
+                  </div>
+
+                  {idx < ARCHITECTURE_PIPELINE.length - 1 && (
+                    <div className="flex h-7 items-center">
+                      <span
+                        className={`h-px w-full transition-colors duration-300 ${
+                          idx < active
+                            ? "bg-[#0D9488]/60 dark:bg-[#5EEAD4]/60"
+                            : "bg-[#E8E8E4] dark:bg-[#1F2937]"
+                        }`}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Mobile: vertical pipeline */}
+          <ol className="md:hidden space-y-2">
+            {ARCHITECTURE_PIPELINE.map((stage, idx) => {
+              const Icon = ICONS[idx % ICONS.length];
+              return (
+                <li key={stage.label}>
+                  <div className="card flex items-center gap-3 p-3.5">
+                    <div className="flex h-7.5 w-7.5 shrink-0 items-center justify-center rounded-lg border border-[#E8E8E4] text-[#0D9488] dark:border-[#374151] dark:text-[#5EEAD4]">
+                      <Icon className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-[#111827] dark:text-[#F9FAFB]">
+                        {stage.label}
+                      </p>
+                      <p className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">
+                        {stage.detail}
+                      </p>
+                    </div>
+                  </div>
+                  {idx < ARCHITECTURE_PIPELINE.length - 1 && (
+                    <div className="flex justify-center py-1">
+                      <ArrowDown className="h-3 w-3 text-[#0D9488]/50 dark:text-[#5EEAD4]/50" />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </div>
     </section>
   );
 }
-

@@ -7,11 +7,11 @@ import ThemeToggle from "./ThemeToggle";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#home" },
-  { label: "Architecture", href: "#architecture" },
   { label: "Experience", href: "#experience" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Journey", href: "#journey" },
+  { label: "Chat", href: "#chat" },
   { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ];
@@ -201,4 +201,3 @@ export default function Navbar({ onOpenResume }: { onOpenResume: () => void }) {
     </header>
   );
 }
-

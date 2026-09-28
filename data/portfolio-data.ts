@@ -141,6 +141,9 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       "Matplotlib",
       "MySQL",
       "MongoDB Atlas",
+      "PostgreSQL",
+      "MongoDB",
+      "SQLite",
     ],
   },
   {
